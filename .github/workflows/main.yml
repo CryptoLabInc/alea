@@ -28,6 +28,36 @@ concurrency:
 
 jobs:
   pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install pre-commit
+      run: |
+        pip install --upgrade pip
+        pip install pre-commit
+
+    - uses: actions/checkout@v4
+      with:
+        # Include previous commit
+        fetch-depth: 2
+
+    - name: Select target SHA to compare and fetch if required
+      run: |
+        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          TARGET_SHA=${{ github.event.pull_request.base.sha }}
+          # Additionally, as checkout action does not fetch the target PR, we do.
+          git fetch --no-tags --prune --depth=1 origin $TARGET_SHA
+        else
+          TARGET_SHA=$( git rev-parse HEAD^ )
+        fi
+        echo "TARGET_SHA=$TARGET_SHA" >> $GITHUB_ENV
+
+    - name: Generate compile commands
+      shell: bash -l {0}
+      run: cmake -S . -B build
+
+    - name: Run pre-commit for commit and push stages.
+      shell: bash -l {0}
+      run: pre-commit install && pre-commit run -s $TARGET_SHA -o HEAD --hook-stage commit --hook-stage push
 
   build-and-test:
     runs-on: ${{ matrix.os }}
@@ -41,9 +71,9 @@ jobs:
         shell: bash -l {0}
     steps:
       - uses: actions/checkout@v4
-     
+
       - name: Configure Cmake and build
         run: cmake --preset release && cmake --build build
-      
+
       - name: Run tests
         run: ctest --test-dir build

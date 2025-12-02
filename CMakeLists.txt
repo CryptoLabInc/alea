@@ -108,11 +108,8 @@ if(ALEA_INSTALL)
     ${CMAKE_CURRENT_SOURCE_DIR}/cmake/aleaConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/aleaConfig.cmake
     INSTALL_DESTINATION lib/cmake/alea
-    PATH_VARS CMAKE_INSTALL_PREFIX
-  )
+    PATH_VARS CMAKE_INSTALL_PREFIX)
 
-  install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/aleaConfig.cmake
-    DESTINATION lib/cmake/alea
-  )
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/aleaConfig.cmake
+          DESTINATION lib/cmake/alea)
 endif()
