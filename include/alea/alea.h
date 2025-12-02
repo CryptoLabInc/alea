@@ -1,12 +1,12 @@
 /*
  * Copyright 2025 CryptoLab, Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -329,7 +329,7 @@ ALEA_API alea_return alea_get_random_uint32_array_in_range(
  * @brief Fills an array with random 64-bit integers of specified Hamming
  * weight.
  *
- * This function fills an array of 64-bit integers where exactly `hwt` entries 
+ * This function fills an array of 64-bit integers where exactly `hwt` entries
  * in the entire array are 1 or -1 (equidistributed),
  * and the remaining entries are zero. The positions and
  * signs of the nonzero values are chosen uniformly at random.
@@ -354,7 +354,7 @@ ALEA_API alea_return alea_sample_hwt_int64_array(alea_state *state,
  * @brief Fills an array with random 32-bit integers of specified Hamming
  * weight.
  *
- * This function fills an array of 32-bit integers where exactly `hwt` entries 
+ * This function fills an array of 32-bit integers where exactly `hwt` entries
  * in the entire array are 1 or -1 (equidistributed),
  * and the remaining entries are zero. The positions and
  * signs of the nonzero values are chosen uniformly at random.
@@ -537,25 +537,27 @@ ALEA_API alea_return alea_sample_gaussian_int32_array(alea_state *state,
                                                       const double stdev);
 
 /**
-  * @brief Generates a key using the HMAC-based Key Derivation Function (HKDF).
-  *
-  * This function implements the HKDF algorithm as defined in RFC 5869, using
-  * HMAC with SHA-256 as the underlying pseudorandom function (PRF).
-  * @param ikm Pointer to the input key material (IKM).
-  * @param ikm_len Length of the input key material in bytes.
-  * @param salt Pointer to the optional salt value. If NULL, a default salt is used.
-  * @param salt_len Length of the salt in bytes. If 0, a default salt is used.
-  * @param info Pointer to the optional context and application-specific information.
-  * @param info_len Length of the info in bytes. If 0, no info is used.
-  * @param okm Pointer to the output key material (OKM) buffer.
-  * @param okm_len Length of the output key material in bytes. 
-  * Must be less than or equal to 255 * SHA3_256_OUTLEN = 8160.
-  * @return An `alea_return` code indicating success or failure of the operation.
-*/
+ * @brief Generates a key using the HMAC-based Key Derivation Function (HKDF).
+ *
+ * This function implements the HKDF algorithm as defined in RFC 5869, using
+ * HMAC with SHA-256 as the underlying pseudorandom function (PRF).
+ * @param ikm Pointer to the input key material (IKM).
+ * @param ikm_len Length of the input key material in bytes.
+ * @param salt Pointer to the optional salt value. If NULL, a default salt is
+ * used.
+ * @param salt_len Length of the salt in bytes. If 0, a default salt is used.
+ * @param info Pointer to the optional context and application-specific
+ * information.
+ * @param info_len Length of the info in bytes. If 0, no info is used.
+ * @param okm Pointer to the output key material (OKM) buffer.
+ * @param okm_len Length of the output key material in bytes.
+ * Must be less than or equal to 255 * SHA3_256_OUTLEN = 8160.
+ * @return An `alea_return` code indicating success or failure of the operation.
+ */
 ALEA_API alea_return alea_hkdf(const uint8_t *ikm, size_t ikm_len,
-                              const uint8_t *salt, size_t salt_len,
-                              const uint8_t *info, size_t info_len,
-                              uint8_t *okm, size_t okm_len);
+                               const uint8_t *salt, size_t salt_len,
+                               const uint8_t *info, size_t info_len,
+                               uint8_t *okm, size_t okm_len);
 
 #ifdef __cplusplus
 }

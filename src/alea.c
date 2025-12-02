@@ -15,8 +15,8 @@
  */
 
 #include "alea/alea.h"
-#include "alea-internal.h"
 #include "alea-hkdf.h"
+#include "alea-internal.h"
 
 #include <assert.h>
 #include <math.h>
@@ -380,9 +380,8 @@ alea_return alea_sample_gaussian_int32_array(alea_state *state,
   return ALEA_RETURN_OK;
 }
 
-alea_return alea_hkdf(const uint8_t *ikm, size_t ikm_len,
-                      const uint8_t *salt, size_t salt_len,
-                      const uint8_t *info, size_t info_len,
+alea_return alea_hkdf(const uint8_t *ikm, size_t ikm_len, const uint8_t *salt,
+                      size_t salt_len, const uint8_t *info, size_t info_len,
                       uint8_t *okm, size_t okm_len) {
   assert(okm_len <= 8160); // 255 * SHA3_256_OUTLEN = 255 * 32 = 8160
 

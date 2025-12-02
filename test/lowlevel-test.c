@@ -1,12 +1,12 @@
 /*
  * Copyright 2025 CryptoLab, Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -149,7 +149,7 @@ static void resqueezing_shake256(void) {
   // force resqueezing by requesting random bytes again and again
   for (int i = 0; i < NBLOCKS; ++i) {
     alea_get_random_bytes(g_state_256, get, SHAKE256_RATE);
-    //printf("%02hhx %02hhx\n", get[0], get[1]);
+    // printf("%02hhx %02hhx\n", get[0], get[1]);
   }
 
   alea_get_random_bytes(g_state_256, get, SHAKE256_RATE); // for test
@@ -188,13 +188,10 @@ static void hkdf_sha3_256(void) {
   alea_hkdf(ikm, 22, salt, 16, info, 10, okm, 42);
 
   const uint8_t expected[42] = {
-    0x6b, 0x1c, 0x2e, 0x66, 0xd3, 0x3c, 0x85, 0xe1,
-    0x47, 0x28, 0xe5, 0x6a, 0xb0, 0xde, 0x32, 0x18,
-    0xee, 0x2f, 0x20, 0xe1, 0x7d, 0xb5, 0x6e, 0x7c,
-    0x91, 0x00, 0x49, 0x03, 0xce, 0x94, 0xcf, 0xe9,
-    0x69, 0x09, 0xf4, 0x9b, 0x41, 0x27, 0xe2, 0x30,
-    0x85, 0xcb
-  };
+      0x6b, 0x1c, 0x2e, 0x66, 0xd3, 0x3c, 0x85, 0xe1, 0x47, 0x28, 0xe5,
+      0x6a, 0xb0, 0xde, 0x32, 0x18, 0xee, 0x2f, 0x20, 0xe1, 0x7d, 0xb5,
+      0x6e, 0x7c, 0x91, 0x00, 0x49, 0x03, 0xce, 0x94, 0xcf, 0xe9, 0x69,
+      0x09, 0xf4, 0x9b, 0x41, 0x27, 0xe2, 0x30, 0x85, 0xcb};
 
   TEST_ASSERT_EQUAL_HEX8_ARRAY(expected, okm, 42);
 }
