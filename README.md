@@ -21,6 +21,9 @@ You should supply `$ALEA_BUILD_DIR` for your preference.
 | Build Options         | What it is                                                 | Default     |
 | --------------------- | ---------------------------------------------------------- | ----------- |
 | `BUILD_SHARED_LIBS`   | Build a shared library instead of a static one             | `OFF`       |
+| `ALEA_BUILD_TEST`     | Build and enable the CTest-based unit tests                                | `ON`    |
+| `ALEA_BUILD_DOXYGEN`  | Generate API documentation via Doxygen                                     | `OFF`   |
+| `ALEA_INSTALL`        | Install the Alea library, headers, and CMake package configuration files   | `ON`    |
 
 ## How to Test
 
@@ -30,6 +33,6 @@ ctest --test-dir $ALEA_BUILD_DIR
 ```
 
 ## License
-deb is licensed under the Apache License 2.0, which means that you are free to get and use it for commercial and non-commercial purposes as long as you fulfill its conditions.
+alea is licensed under the Apache License 2.0, which means that you are free to get and use it for commercial and non-commercial purposes as long as you fulfill its conditions.
 
 See the LICENSE file for more details.
