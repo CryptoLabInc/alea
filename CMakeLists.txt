@@ -17,7 +17,7 @@
 cmake_minimum_required(VERSION 3.21)
 project(
   alea
-  VERSION 0.1.5
+  VERSION 0.1.7
   LANGUAGES C
   DESCRIPTION "CryptoLab's official pseudo-random number generator")
 
