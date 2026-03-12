@@ -19,7 +19,9 @@
 
 #include "unity.h"
 
+#ifdef _MSC_VER
 #include <malloc.h>
+#endif
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,7 +29,7 @@
 
 #define TEST_SIZE 100000
 #define TEST_RANGE_32 100
-#define TEST_RANGE_64 (1UL << 30)
+#define TEST_RANGE_64 (1ULL << 30)
 #define TEST_HWT (TEST_SIZE * 2 / 3)
 #define TEST_CBD 21
 #define TEST_STD 3.2

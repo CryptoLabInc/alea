@@ -43,8 +43,6 @@ target_compile_definitions(alea PUBLIC ALEA_EXPORTS)
 target_link_libraries(alea PRIVATE ${CRYPTO_LIB_NAME})
 if(NOT MSVC)
   target_link_libraries(alea PRIVATE m)
-else()
-  add_link_options(/MANIFEST:NO)
 endif()
 target_include_directories(
   alea PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

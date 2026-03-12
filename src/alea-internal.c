@@ -23,8 +23,10 @@
 
 #ifdef _MSC_VER
 #define NOINLINE __declspec(noinline)
-#else
+#elif defined(__GNUC__) || defined(__clang__)
 #define NOINLINE __attribute__((noinline))
+#else
+#define NOINLINE
 #endif
 
 /* Compile-time detection of secure memory-zeroing primitive.
@@ -44,7 +46,7 @@
 extern void explicit_bzero(void *, size_t);
 #endif
 #elif defined(__OpenBSD__) || (defined(__FreeBSD__) && __FreeBSD__ >= 11) ||   \
-    defined(__NetBSD__) || defined(__APPLE__)
+    defined(__NetBSD__)
 #define ALEA_HAVE_EXPLICIT_BZERO 1
 #elif defined(_WIN32)
 #include <windows.h>
