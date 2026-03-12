@@ -18,9 +18,9 @@ You should supply `$ALEA_BUILD_DIR` for your preference.
 
 ### Build Options
 
-| Build Options         | What it is                                                 | Default     |
-| --------------------- | ---------------------------------------------------------- | ----------- |
-| `BUILD_SHARED_LIBS`   | Build a shared library instead of a static one             | `OFF`       |
+| Build Options         | What it is                                                                 | Default |
+| --------------------- | -------------------------------------------------------------------------- | ------- |
+| `BUILD_SHARED_LIBS`   | Build a shared library instead of a static one                             | `OFF`   |
 | `ALEA_BUILD_TEST`     | Build and enable the CTest-based unit tests                                | `ON`    |
 | `ALEA_BUILD_DOXYGEN`  | Generate API documentation via Doxygen                                     | `OFF`   |
 | `ALEA_INSTALL`        | Install the Alea library, headers, and CMake package configuration files   | `ON`    |

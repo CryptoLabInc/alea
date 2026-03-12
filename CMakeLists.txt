@@ -1,5 +1,5 @@
 # ~~~
-# Copyright 2025 CryptoLab, Inc.
+# Copyright 2026 CryptoLab, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 cmake_minimum_required(VERSION 3.21)
 project(
   alea
-  VERSION 0.1.5
+  VERSION 0.1.7
   LANGUAGES C
   DESCRIPTION "CryptoLab's official pseudo-random number generator")
 
@@ -37,19 +37,20 @@ include(cmake/warnings.cmake)
 include(cmake/CPM.cmake)
 
 add_library(alea)
-target_sources(alea PRIVATE include/alea/alea.h include/alea/algorithms.h
-                            src/alea.c src/alea-internal.h src/alea-hkdf.c)
+target_sources(alea PRIVATE src/alea.c src/alea-internal.c src/alea-hkdf.c)
 set_my_project_warnings(alea)
 target_compile_definitions(alea PUBLIC ALEA_EXPORTS)
-target_link_libraries(alea PRIVATE ${CRYPTO_LIB_NAME} m)
+target_link_libraries(alea PRIVATE ${CRYPTO_LIB_NAME})
+if(NOT MSVC)
+  target_link_libraries(alea PRIVATE m)
+endif()
 target_include_directories(
   alea PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
               $<INSTALL_INTERFACE:include>)
 
 set(CRYPTO_LIB_NAME "")
 set(CRYPTO_LIB_COMPILE_DEFINITION "ALEA_BUILTIN")
-target_sources(alea PRIVATE src/fips202.h src/fips202.c src/alea-builtin.h
-                            src/alea-builtin.c)
+target_sources(alea PRIVATE src/fips202.c src/alea-builtin.c)
 
 target_compile_definitions(alea PRIVATE ${CRYPTO_LIB_COMPILE_DEFINITION})
 

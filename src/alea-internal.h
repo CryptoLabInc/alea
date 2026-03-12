@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 CryptoLab, Inc.
+ * Copyright 2026 CryptoLab, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+void safe_memzero(void *ptr, size_t ptr_len);
+
 static inline void safe_free(void *ptr, size_t ptr_len) {
-  memset(ptr, 0, ptr_len);
+  safe_memzero(ptr, ptr_len);
   free(ptr);
 }
 
