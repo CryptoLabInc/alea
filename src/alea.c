@@ -174,10 +174,9 @@ inline static alea_return alea_rejection_sampling_mod(alea_state *state,
   uint64_t n = (uint64_t)dst_len;
   uint64_t rnd, m, l, t, s;
 
-  for (uint64_t i = 0; i < n - 1; i++) {
-    s = n - 1 - i;
+  for (uint64_t i = 0; i < n; i++) {
+    s = n - i;
     t = two_to_L % s;
-    // Unbiased uniform sampling from [0, n - 1 - i)
     // Rejection sampling ensures that ⌊x · s/2L⌋ is unbiasedly
     // sampled from [0, s)
     do {

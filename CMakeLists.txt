@@ -37,19 +37,22 @@ include(cmake/warnings.cmake)
 include(cmake/CPM.cmake)
 
 add_library(alea)
-target_sources(alea PRIVATE include/alea/alea.h include/alea/algorithms.h
-                            src/alea.c src/alea-internal.h src/alea-hkdf.c)
+target_sources(alea PRIVATE src/alea.c src/alea-internal.c src/alea-hkdf.c)
 set_my_project_warnings(alea)
 target_compile_definitions(alea PUBLIC ALEA_EXPORTS)
-target_link_libraries(alea PRIVATE ${CRYPTO_LIB_NAME} m)
+target_link_libraries(alea PRIVATE ${CRYPTO_LIB_NAME})
+if(NOT MSVC)
+  target_link_libraries(alea PRIVATE m)
+else()
+  add_link_options(/MANIFEST:NO)
+endif()
 target_include_directories(
   alea PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
               $<INSTALL_INTERFACE:include>)
 
 set(CRYPTO_LIB_NAME "")
 set(CRYPTO_LIB_COMPILE_DEFINITION "ALEA_BUILTIN")
-target_sources(alea PRIVATE src/fips202.h src/fips202.c src/alea-builtin.h
-                            src/alea-builtin.c)
+target_sources(alea PRIVATE src/fips202.c src/alea-builtin.c)
 
 target_compile_definitions(alea PRIVATE ${CRYPTO_LIB_COMPILE_DEFINITION})
 

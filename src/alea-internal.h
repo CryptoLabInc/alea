@@ -22,8 +22,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+void safe_memzero(void *ptr, size_t ptr_len);
+
 static inline void safe_free(void *ptr, size_t ptr_len) {
-  memset(ptr, 0, ptr_len);
+  safe_memzero(ptr, ptr_len);
   free(ptr);
 }
 

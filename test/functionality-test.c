@@ -19,6 +19,7 @@
 
 #include "unity.h"
 
+#include <malloc.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,7 +27,7 @@
 
 #define TEST_SIZE 100000
 #define TEST_RANGE_32 100
-#define TEST_RANGE_64 (1UL << 33)
+#define TEST_RANGE_64 (1UL << 30)
 #define TEST_HWT (TEST_SIZE * 2 / 3)
 #define TEST_CBD 21
 #define TEST_STD 3.2
@@ -67,8 +68,8 @@
     }                                                                          \
     if (range > size)                                                          \
       return;                                                                  \
-    int count[range];                                                          \
-    memset(count, 0, sizeof(count));                                           \
+    int *count = malloc(range * sizeof(int));                                  \
+    memset(count, 0, range * sizeof(*count));                                  \
     for (size_t i = 0; i < size; ++i) {                                        \
       count[dst[i]] += 1;                                                      \
     }                                                                          \
@@ -81,6 +82,7 @@
       }                                                                        \
     }                                                                          \
     TEST_ASSERT_LESS_OR_EQUAL(range * VERIFY_SIGMA_TOLER, count_out_of_range); \
+    free(count);                                                               \
   }
 
 #define CHECK_HWT(bit)                                                         \
@@ -157,16 +159,19 @@ void tearDown(void) {
   alea_free(g_state_256);
 }
 
-#define CHECK_FUNTION_LIST                                                     \
+#define CHECK_FUNCTION_LIST                                                    \
   Y(RANGE)                                                                     \
   Y(HWT)                                                                       \
   Y(CBD)                                                                       \
   Y(GAUSSIAN)
 
-#define Y(NAME) CHECK_##NAME(32) CHECK_##NAME(64)
-CHECK_FUNTION_LIST
-CHECK_HWT(8)
+#define Y(NAME)                                                                \
+  CHECK_##NAME(32);                                                            \
+  CHECK_##NAME(64);
+
+CHECK_FUNCTION_LIST
 #undef Y
+CHECK_HWT(8)
 
 #define X(NAME, API, TYPE, SIZE, OPT)                                          \
   DEFINE_FUNCTIONALITY_TEST(NAME, API, TYPE, SIZE, OPT)
