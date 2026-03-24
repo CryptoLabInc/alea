@@ -81,4 +81,7 @@ jobs:
 
       - name: Run tests (Windows)
         if: runner.os == 'Windows'
-        run: ctest --test-dir build --build-config Release
+        run: |
+          find build -iname "*lowlevel*"
+          find build -iname "*.exe"
+          ctest --test-dir build --build-config Release
