@@ -22,7 +22,7 @@
     },
     {
       "name": "ci-win",
-      "inherits": "release",
+      "inherits": "ci",
       "generator": "Ninja"
     }
   ],
