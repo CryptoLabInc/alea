@@ -72,8 +72,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure Cmake and build
+      - name: Configure Cmake and build (Liniux/macOS)
+        if: runner.os != 'Windows'
         run: cmake --preset release && cmake --build build
+      
+      - name: Configure and build (Windows)
+        if: runner.os == 'Windows'
+        run: cmake --preset ci-win && cmake --build --preset ci-win 
 
       - name: Run tests
         run: ctest --test-dir build
