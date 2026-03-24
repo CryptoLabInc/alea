@@ -64,7 +64,13 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            preset: ci
+          - os: macos-latest
+            preset: ci
+          - os: windows-latest
+            preset: ci-win
 
     defaults:
       run:
@@ -72,18 +78,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure Cmake and build (Ubuntu and macOS)
-        if: runner.os != 'Windows'
-        run: cmake --preset ci && cmake --build --preset ci
+      - name: Configure Cmake and build
+        run: cmake --preset ${{ matrix.preset }} && cmake --build --preset ${{ matrix.preset }}
 
-      - name: Configure and build (Windows)
-        if: runner.os == 'Windows'
-        run: cmake --preset ci-win && cmake --build --preset ci-win
-
-      - name: Run tests (Ubuntu and macOS)
-        #if: runner.os != 'Windows'
+      - name: Run tests
         run: ctest --test-dir build
-
-      #- name: Run tests (Windows)
-      #  if: runner.os == 'Windows'
-      #  run: ctest --test-dir build --build-config Release
