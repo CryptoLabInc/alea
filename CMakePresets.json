@@ -14,11 +14,30 @@
       }
     },
     {
-      "name": "release",
+      "name": "ci",
       "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
+    },
+    {
+      "name": "ci-win",
+      "inherits": "release",
+      "generator": "Ninja"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "debug",
+      "configurePreset": "debug"
+    },
+    {
+      "name": "ci",
+      "configurePreset": "ci"
+    },
+    {
+      "name": "ci-win",
+      "configurePreset": "ci-win"
     }
   ]
 }

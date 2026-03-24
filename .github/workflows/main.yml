@@ -72,16 +72,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure Cmake and build
-        run: cmake --preset release && cmake --build build
+      - name: Configure Cmake and build (Ubuntu and macOS)
+        if: runner.os != 'Windows'
+        run: cmake --preset ci && cmake --build --preset ci
+
+      - name: Configure and build (Windows)
+        if: runner.os == 'Windows'
+        run: cmake --preset ci-win && cmake --build --preset ci-win
 
       - name: Run tests (Ubuntu and macOS)
-        if: runner.os != 'Windows'
+        #if: runner.os != 'Windows'
         run: ctest --test-dir build
 
-      - name: Run tests (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          find build -iname "*lowlevel*"
-          find build -iname "*.exe"
-          ctest --test-dir build --build-config Release
+      #- name: Run tests (Windows)
+      #  if: runner.os == 'Windows'
+      #  run: ctest --test-dir build --build-config Release
